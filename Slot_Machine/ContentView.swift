@@ -1,14 +1,14 @@
 /**App Name: Slot Machine
-Version: 1.0
-Created on: 22-01-2023
+ Version: 1.0
+ Created on: 22-01-2023
  
  
-Created by:
+ Created by:
  
  
-Krishna Patel 301268911
-Vaishnavi Santhapuri 301307031
-Kowndinya Varanasi 301210621
+ Krishna Patel 301268911
+ Vaishnavi Santhapuri 301307031
+ Kowndinya Varanasi 301210621
  
  Description:
  This is a Slot Machine App.
@@ -18,7 +18,7 @@ Kowndinya Varanasi 301210621
  Credit refers to the amount of money or tokens that a player has available to use for making bets.
  Spin button is used to change the reels randomly
  Reset button resets the game to its initial state
- Exit button gives an alert to exit from the Application*/
+ Exit button gives an alert to exit from the Application */
 
 import SwiftUI
 
@@ -31,6 +31,7 @@ struct ContentView: View {
     @State private var showConfirm = false
     @State private var isDisabled = true
     @State private var showAlert = false
+    @State private var showWinMessage = false
     private var bet = 50
     var body: some View {
         
@@ -48,7 +49,23 @@ struct ContentView: View {
                 Image("logo")
                     .resizable()
                     .frame(width: 200, height: 200)
+               //
+                
+                Text("Jackpot: " + String(jackpot))
+                    .foregroundColor(.white)
+                    .font(.system(size: 25, weight: .semibold, design: .serif))
+                    .padding(.all,10)
+                    .background(LinearGradient(gradient: Gradient(colors: [.purple, .black, .purple]), startPoint: .topLeading, endPoint: .bottomTrailing))
+    //
+    //                        .background(Color.indigo)
+                    .cornerRadius(20)
+                    .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(.black, lineWidth: 2)
+                    )
+                
                 Spacer()
+                
             //Cards
                 HStack {
                     Spacer()
@@ -84,36 +101,46 @@ struct ContentView: View {
                 //Credit counter
                 Spacer()
                 HStack{
+                    Spacer()
                     Text("Bet: " + String(bet))
-                        .foregroundColor(.red)
-                        .font(.system(size: 25, weight: .bold, design: .monospaced))
+                        .foregroundColor(.white)
+                        .font(.system(size: 25, weight: .semibold, design: .serif))
                         .padding(.all,10)
-                        .background(Color.indigo)
-                        .cornerRadius(10)
+                        .background(LinearGradient(gradient: Gradient(colors: [.purple, .black, .purple]), startPoint: .topLeading, endPoint: .bottomTrailing))
+        //
+        //                        .background(Color.indigo)
+                        .cornerRadius(20)
                         .overlay(
-                                RoundedRectangle(cornerRadius: 10)
+                                RoundedRectangle(cornerRadius: 20)
                                     .stroke(.black, lineWidth: 2)
+                                
                         )
+                    Spacer()
+                   
+                    
                     Text("Credits: " + String(credits))
-                        .foregroundColor(.green)
-                        .font(.system(size: 25, weight: .bold, design: .monospaced))
+                        .foregroundColor(.white)
+                        .font(.system(size: 25, weight: .semibold, design: .serif))
                         .padding(.all,10)
-                        .background(Color.indigo)
-                        .cornerRadius(10)
+                        .background(LinearGradient(gradient: Gradient(colors: [.purple, .black, .purple]), startPoint: .topLeading, endPoint: .bottomTrailing))
+        //
+        //                        .background(Color.indigo)
+                        .cornerRadius(20)
                         .overlay(
-                                RoundedRectangle(cornerRadius: 10)
+                                RoundedRectangle(cornerRadius: 20)
                                     .stroke(.black, lineWidth: 2)
                         )
+                    Spacer()
                 }
     
             
                 //Button
                     Spacer()
-                    //Spacer()
+                    
                     //Button(action: {
                         
                         //check if mninimum credits are available to play
-                    if self.credits <= 9900 {
+                    if self.credits <= 9800 {
                                    Button(action: {
                                        self.showAlert = true
                                    }) {
@@ -135,6 +162,16 @@ struct ContentView: View {
                                        Alert(title: Text("Insufficient Credits"), message: Text("You need more credits to perform this action"), dismissButton: .default(Text("Ok")))
                                    }
                                } else {
+                                   
+                                   if showWinMessage {
+                                        Text("You Won Jackpot!")
+                                       .font(.largeTitle)
+                                       .fontWeight(.heavy)
+                                       .foregroundColor(.black)
+                                       .transition(.slide.combined(with: .scale)).transition(.move(edge: .trailing).combined(with: .move(edge: .top)))
+                                       
+                                   }
+                                   
                                    Button(action: {
                                        // Perform action here
                                        //Change the symbols
@@ -147,13 +184,22 @@ struct ContentView: View {
                                            self.numbers[1] == self.numbers[2]
                                        {
                                            //Won
+                                           withAnimation(.linear(duration: 2))
+                                           {
+                                               self.showWinMessage = true
+                                               
+                                           }
+                                           
                                            self.credits += self.bet * 10
+                                           
                                        }
                                           else {
                                            self.credits -= self.bet
+                                           self.showWinMessage = false
                                        }
-                                     
-                                   }) {
+                                    
+                                   })
+                                   {
                                        Text ("SPIN")
                                            .font(.custom("AmericanTypewriter-Semibold", fixedSize: 30))
                                            .foregroundColor(.black)
@@ -161,19 +207,14 @@ struct ContentView: View {
                                            .padding([.leading,.trailing], 30)
                    //                        .background(Color(red: 1, green: 0.8, blue: 0))
                                            .background(LinearGradient(gradient: Gradient(colors: [.red, .yellow, .red]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                   //
+                   
                                            .cornerRadius(30)
                                            .overlay(
                                                    RoundedRectangle(cornerRadius: 30)
                                                        .stroke(.bar, style: StrokeStyle(lineWidth: 3, dash: [8, 5]))
                                            )
-
                                    }
                                }
-              
-                
-                
-                
                 Spacer()
                 HStack{
                     Spacer()
@@ -188,6 +229,9 @@ struct ContentView: View {
                     }
                     Spacer(minLength: 180)
                     Button(action: {
+                        withAnimation {
+                                   self.showAlert.toggle()
+                               }
                                 self.showConfirm = true
                             }) {
                                 Image("exit")
@@ -195,14 +239,12 @@ struct ContentView: View {
                                     .frame(width: 90, height: 90)
                             }
                             .alert(isPresented: $showConfirm) {
-                                Alert(title: Text("Confirm"), message: Text("Are you sure you want to quit the app?"), primaryButton: .destructive(Text("Quit")) {
+                                Alert(title: Text("Confirm"), message: Text("Are you sure you want to quit the game?"), primaryButton: .destructive(Text("Quit")) {
                                     exit(0)
                                 }, secondaryButton: .cancel())
                 
                             }
-                    
-                    
-                    
+                            .transition(.scale)
                     Spacer()
                 }
             }
