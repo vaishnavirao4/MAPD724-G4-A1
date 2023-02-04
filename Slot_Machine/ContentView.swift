@@ -27,6 +27,10 @@ struct ContentView: View {
     private var symbols = ["pineapple" , "watermelon", "raspberry"]
     @State private var numbers = [0, 1, 2]
     @State private var credits = 10000
+    @State private var jackpot = 500
+    @State private var showConfirm = false
+    @State private var isDisabled = true
+    @State private var showAlert = false
     private var bet = 50
     var body: some View {
         
@@ -102,37 +106,74 @@ struct ContentView: View {
                         )
                 }
     
-            //Button
-                Spacer()
-                Button(action: {
-                    //Change the symbols
-                    self.numbers[0] = Int.random(in: 0...self.symbols.count - 1)
-                    self.numbers[1] = Int.random(in: 0...self.symbols.count - 1)
-                    self.numbers[2] = Int.random(in: 0...self.symbols.count - 1)
-                    
-                    //check winnings
-                    if self.numbers[0] == self.numbers[1] &&
-                        self.numbers[1] == self.numbers[2]
-                    {
-                        //Won
-                        self.credits += self.bet * 10
-                    }
-                       else {
-                        self.credits -= self.bet
-                    }
-                }) {
-                    Text ("Spin")
-                        .font(.custom("AmericanTypewriter-Semibold", fixedSize: 30))
-                        .foregroundColor(.blue)
-                        .padding(.all,10)
-                        .padding([.leading,.trailing], 30)
-                        .background(Color(red: 1, green: 0.8, blue: 0))
-                        .cornerRadius(30)
-                        .overlay(
-                                RoundedRectangle(cornerRadius: 30)
-                                    .stroke(.pink, style: StrokeStyle(lineWidth: 5, dash: [10, 2]))
-                        )
-                }
+            
+                //Button
+                    Spacer()
+                    //Spacer()
+                    //Button(action: {
+                        
+                        //check if mninimum credits are available to play
+                    if self.credits <= 9900 {
+                                   Button(action: {
+                                       self.showAlert = true
+                                   }) {
+                                       Text("SPIN")
+                                           .font(.custom("AmericanTypewriter-Semibold", fixedSize: 30))
+                                           .foregroundColor(.black)
+                                           .padding(.all,10)
+                                           .padding([.leading,.trailing], 30)
+                   //                        .background(Color(red: 1, green: 0.8, blue: 0))
+                                           .background(LinearGradient(gradient: Gradient(colors: [.gray, .gray, .gray]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                   //
+                                           .cornerRadius(30)
+                                           .overlay(
+                                                   RoundedRectangle(cornerRadius: 30)
+                                                       .stroke(.bar, style: StrokeStyle(lineWidth: 3, dash: [8, 5]))
+                                           )
+                                   }
+                                   .alert(isPresented: $showAlert) {
+                                       Alert(title: Text("Insufficient Credits"), message: Text("You need more credits to perform this action"), dismissButton: .default(Text("Ok")))
+                                   }
+                               } else {
+                                   Button(action: {
+                                       // Perform action here
+                                       //Change the symbols
+                                       self.numbers[0] = Int.random(in: 0...self.symbols.count - 1)
+                                       self.numbers[1] = Int.random(in: 0...self.symbols.count - 1)
+                                       self.numbers[2] = Int.random(in: 0...self.symbols.count - 1)
+                                       
+                                       //check winnings
+                                       if self.numbers[0] == self.numbers[1] &&
+                                           self.numbers[1] == self.numbers[2]
+                                       {
+                                           //Won
+                                           self.credits += self.bet * 10
+                                       }
+                                          else {
+                                           self.credits -= self.bet
+                                       }
+                                     
+                                   }) {
+                                       Text ("SPIN")
+                                           .font(.custom("AmericanTypewriter-Semibold", fixedSize: 30))
+                                           .foregroundColor(.black)
+                                           .padding(.all,10)
+                                           .padding([.leading,.trailing], 30)
+                   //                        .background(Color(red: 1, green: 0.8, blue: 0))
+                                           .background(LinearGradient(gradient: Gradient(colors: [.red, .yellow, .red]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                   //
+                                           .cornerRadius(30)
+                                           .overlay(
+                                                   RoundedRectangle(cornerRadius: 30)
+                                                       .stroke(.bar, style: StrokeStyle(lineWidth: 3, dash: [8, 5]))
+                                           )
+
+                                   }
+                               }
+              
+                
+                
+                
                 Spacer()
                 HStack{
                     Spacer()
@@ -147,14 +188,21 @@ struct ContentView: View {
                     }
                     Spacer(minLength: 180)
                     Button(action: {
-                        //reset the credits
-                            self.credits = 10000
-                    }) {
-                        Image("exit")
-                            .resizable()
-                            .frame(width: 90, height: 90)
-                            
-                    }
+                                self.showConfirm = true
+                            }) {
+                                Image("exit")
+                                    .resizable()
+                                    .frame(width: 90, height: 90)
+                            }
+                            .alert(isPresented: $showConfirm) {
+                                Alert(title: Text("Confirm"), message: Text("Are you sure you want to quit the app?"), primaryButton: .destructive(Text("Quit")) {
+                                    exit(0)
+                                }, secondaryButton: .cancel())
+                
+                            }
+                    
+                    
+                    
                     Spacer()
                 }
             }
