@@ -25,12 +25,13 @@ struct ContentView: View {
     
     private var symbols = ["pineapple" , "watermelon", "raspberry"]
     @State private var numbers = [0, 1, 2]
-    @State private var credits = 10000
+    @State private var credits = 1000
     @State private var jackpot = 500
     @State private var showConfirm = false
     @State private var isDisabled = true
     @State private var showAlert = false
     @State private var showWinMessage = false
+    @State private var enteredBet  = "0"
     private var bet = 50
     var body: some View {
         
@@ -50,7 +51,7 @@ struct ContentView: View {
                     .frame(width: 200, height: 200)
                //
                 
-                Text("Jackpot: " + String(jackpot))
+                Text("Credits: " + String(credits))
                     .foregroundColor(.white)
                     .font(.system(size: 25, weight: .semibold, design: .serif))
                     .padding(.all,10)
@@ -99,9 +100,10 @@ struct ContentView: View {
                 }
                 //Credit counter
                 Spacer()
+                
                 HStack{
                     Spacer()
-                    Text("Bet: " + String(bet))
+                    Text("Bet: ")
                         .foregroundColor(.white)
                         .font(.system(size: 25, weight: .semibold, design: .serif))
                         .padding(.all,10)
@@ -114,11 +116,24 @@ struct ContentView: View {
                                     .stroke(.black, lineWidth: 2)
                                 
                         )
+                    TextField("Enter your bet", text: $enteredBet)
+                        .keyboardType(.numberPad)
+                        .frame(width: 70)
+                      //   .textFieldStyle(RoundedBorderTextFieldStyle())
+                        // .foregroundColor(.purple)
+                         .foregroundColor(.white)
+                         .font(.system(size: 25, weight: .semibold, design: .serif))
+                         .padding(.all,10)
+                         .background(LinearGradient(gradient: Gradient(colors: [.purple, .black, .purple]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                         .cornerRadius(20)
+                         .overlay(
+                             RoundedRectangle(cornerRadius: 20)
+                                 .stroke(.black, lineWidth: 2)
+                             )
                     Spacer()
                    
                     
-                    Text("Credits: " + String(credits))
-                        .foregroundColor(.white)
+                             Text("Jackpot: " + String((Int(enteredBet) ?? 0) * 10))                        .foregroundColor(.white)
                         .font(.system(size: 25, weight: .semibold, design: .serif))
                         .padding(.all,10)
                         .background(LinearGradient(gradient: Gradient(colors: [.purple, .black, .purple]), startPoint: .topLeading, endPoint: .bottomTrailing))
@@ -139,8 +154,8 @@ struct ContentView: View {
                     //Button(action: {
                         
                         //check if mninimum credits are available to play
-                    if self.credits <= 9800 {
-                                   Button(action: {
+                             if self.credits <= Int(enteredBet) ?? 0 {
+                                 Button(action: {
                                        self.showAlert = true
                                    }) {
                                        Text("SPIN")
@@ -189,12 +204,11 @@ struct ContentView: View {
                                                
                                            }
                                            
-                                           self.credits += self.bet * 10
-                                           
+                                           self.credits += (Int(self.enteredBet) ?? 0) * 10
                                        }
                                           else {
-                                           self.credits -= self.bet
-                                           self.showWinMessage = false
+                                              self.credits -= Int(self.enteredBet) ?? 0
+                                              self.showWinMessage = false
                                        }
                                     
                                    })
@@ -219,7 +233,8 @@ struct ContentView: View {
                     Spacer()
                     Button(action: {
                         //reset the credits
-                            self.credits = 10000
+                            self.credits = 1000
+                        self.enteredBet = "0"
                     }) {
                         Image("reset1")
                             .resizable()
