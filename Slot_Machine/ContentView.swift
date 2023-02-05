@@ -1,6 +1,6 @@
 /**App Name: Slot Machine
- Version: 1.0
- Created on: 22-01-2023
+ Version: 2.0
+ Created on: 05-02-2023
  
  
  Created by:
@@ -18,6 +18,7 @@
  Credit refers to the amount of money or tokens that a player has available to use for making bets.
  Spin button is used to change the reels randomly
  Reset button resets the game to its initial state
+ If the 3 images are same, then the user gets 500 credit and a message pops up as "You won Jackpot"
  Exit button gives an alert to exit from the Application */
 
 import SwiftUI
