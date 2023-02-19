@@ -1,6 +1,6 @@
 /**App Name: Slot Machine
- Version: 2.0
- Created on: 05-02-2023
+ Version: 3.0
+ Created on: 19-02-2023
  
  Created by:
  
@@ -17,7 +17,9 @@
  Spin button is used to change the reels randomly
  Reset button resets the game to its initial state
  If the 3 images are same, then the user gets 500 credit and a message pops up as "You won Jackpot"
- Exit button gives an alert to exit from the Application */
+ Exit button gives an alert to exit from the Application
+ An information button is added to give the instructions for playing the game
+ Core Data is used to store the highest score in the database*/
 
 import SwiftUI
 import UIKit
@@ -269,6 +271,7 @@ struct ContentView: View {
                             self.enteredBet = "0"
                             self.showWinMessage = false
                             self.highScore = 1000
+                            self.showConfirm = false
                         }) {
                             Image("reset1")
                                 .resizable()
