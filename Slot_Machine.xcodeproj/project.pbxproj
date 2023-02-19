@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B124F4729A1EB4A00FA8109 /* SlotMachine.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6B124F4529A1EB4A00FA8109 /* SlotMachine.xcdatamodeld */; };
+		6B124F4929A1EC7F00FA8109 /* DataPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B124F4829A1EC7F00FA8109 /* DataPersistence.swift */; };
 		6B258312297CB82B00AD6197 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B258311297CB82B00AD6197 /* SplashView.swift */; };
 		B666DEC229788BCE0024377B /* Slot_MachineApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B666DEC129788BCE0024377B /* Slot_MachineApp.swift */; };
 		B666DEC429788BCE0024377B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B666DEC329788BCE0024377B /* ContentView.swift */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B124F4629A1EB4A00FA8109 /* SlotMachine.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SlotMachine.xcdatamodel; sourceTree = "<group>"; };
+		6B124F4829A1EC7F00FA8109 /* DataPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPersistence.swift; sourceTree = "<group>"; };
 		6B258311297CB82B00AD6197 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		B666DEBE29788BCE0024377B /* Slot_Machine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slot_Machine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B666DEC129788BCE0024377B /* Slot_MachineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slot_MachineApp.swift; sourceTree = "<group>"; };
@@ -57,7 +61,9 @@
 				B666DEC329788BCE0024377B /* ContentView.swift */,
 				6B258311297CB82B00AD6197 /* SplashView.swift */,
 				B666DEC529788BCE0024377B /* Assets.xcassets */,
+				6B124F4529A1EB4A00FA8109 /* SlotMachine.xcdatamodeld */,
 				B666DEC729788BCE0024377B /* Preview Content */,
+				6B124F4829A1EC7F00FA8109 /* DataPersistence.swift */,
 			);
 			path = Slot_Machine;
 			sourceTree = "<group>";
@@ -143,6 +149,8 @@
 				B666DEC429788BCE0024377B /* ContentView.swift in Sources */,
 				B666DEC229788BCE0024377B /* Slot_MachineApp.swift in Sources */,
 				6B258312297CB82B00AD6197 /* SplashView.swift in Sources */,
+				6B124F4929A1EC7F00FA8109 /* DataPersistence.swift in Sources */,
+				6B124F4729A1EB4A00FA8109 /* SlotMachine.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +355,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6B124F4529A1EB4A00FA8109 /* SlotMachine.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6B124F4629A1EB4A00FA8109 /* SlotMachine.xcdatamodel */,
+			);
+			currentVersion = 6B124F4629A1EB4A00FA8109 /* SlotMachine.xcdatamodel */;
+			path = SlotMachine.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B666DEB629788BCD0024377B /* Project object */;
 }
